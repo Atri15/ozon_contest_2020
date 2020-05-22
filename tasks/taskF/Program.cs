@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace taskF
 {
@@ -19,7 +20,7 @@ namespace taskF
                 var buffer = new char[bufferSize];
                 var count = bufferSize;
 
-                var numStr = "";
+                var numStr = new StringBuilder();
                 var firstLine = true;
 
                 var length = sr.BaseStream.Length;
@@ -36,7 +37,7 @@ namespace taskF
                         totalRead++;
                         if (nextChar != ' ' && nextChar != '\n' && nextChar != '\r')
                         {
-                            numStr += nextChar;
+                            numStr.Append(nextChar);
                             if (length > totalRead)
                             {
                                 continue;
@@ -47,15 +48,15 @@ namespace taskF
                         {
                             if (firstLine)
                             {
-                                target = int.Parse(numStr);
+                                target = int.Parse(numStr.ToString());
                                 firstLine = false;
-                                numStr = "";
+                                numStr.Clear();
                             }
                         }
                         else
                         {
                             int key;
-                            if (int.TryParse(numStr, out key))
+                            if (int.TryParse(numStr.ToString(), out key))
                             {
                                 if (numberDict.ContainsKey(key))
                                 {
@@ -67,7 +68,7 @@ namespace taskF
                                 }
                             }
 
-                            numStr = "";
+                            numStr.Clear();
                         }
                     }
                 }
