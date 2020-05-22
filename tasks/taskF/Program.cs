@@ -11,8 +11,8 @@ namespace taskF
             const string fileName = "input.txt";
             const int bufferSize = 28 * 1024 * 1024;
 
-            int target = 0;
-            var numberDict = new SortedDictionary<int, byte>();
+            ulong target = 0;
+            var numberDict = new SortedDictionary<ulong, byte>();
 
             //считаем файл в словарь
             using (var sr = new StreamReader(fileName))
@@ -48,15 +48,15 @@ namespace taskF
                         {
                             if (firstLine)
                             {
-                                target = int.Parse(numStr.ToString());
+                                target = ulong.Parse(numStr.ToString());
                                 firstLine = false;
                                 numStr.Clear();
                             }
                         }
                         else
                         {
-                            int key;
-                            if (int.TryParse(numStr.ToString(), out key))
+                            ulong key;
+                            if (ulong.TryParse(numStr.ToString(), out key))
                             {
                                 if (numberDict.ContainsKey(key))
                                 {
